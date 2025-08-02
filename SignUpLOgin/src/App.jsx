@@ -4,6 +4,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Food from "./components/Food";
 import Proute from "./components/Proute";
+import UserCard from "./components/UserCard";
  
 const App = () => {
   return (
@@ -14,6 +15,8 @@ const App = () => {
           <Route path="/login" element={<Login/>}/>
           <Route path="/" element={<Proute/>}>
           <Route path="/foods" element={<Food/>}/>
+          <Route path="/users" element={<UserCard/>}/>
+
           </Route>
 
 

@@ -1,18 +1,30 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+     const [redirect, setRedirect] = useState(false);
+  
+
 
   const handleClick=async()=>{
     const response= await axios.post("http://localhost:4000/login",{
       email,password
     },{withCredentials:true});
     console.log(response);
+    alert(response.data.msg)
+    setRedirect(true)
+
     
   }
 
+  if(redirect){
+    return(
+      <Navigate to={"/foods"}/>
+    )
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-black px-4">
       <div className="w-full max-w-md bg-[#0f0f0f] p-8 rounded-2xl shadow-2xl border border-blue-700">

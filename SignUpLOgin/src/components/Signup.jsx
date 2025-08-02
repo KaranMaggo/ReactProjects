@@ -1,11 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const Signup = () => {
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [ProfilePic, setProfilePic] = useState("");
+
+   const [redirect, setRedirect] = useState(false);
 
 
   const handleSubmit = async (e) => {
@@ -16,10 +21,12 @@ const Signup = () => {
         email,
         phone,
         password,
+        ProfilePic
       });
       console.log(response.data);
       if (response.data.success) {
         alert("account Created Successfully");
+        setRedirect(true);
       } else {
         alert("there is error bro");
       }
@@ -28,7 +35,14 @@ const Signup = () => {
       console.log("something went wrong");
     }
     console.log("form submitted");
+    
+    
   };
+  if (redirect){
+      return(
+    <Navigate to={'/login'}/>
+      )
+     }
 
   return (
     <div>
@@ -108,6 +122,23 @@ const Signup = () => {
             }}
             className="w-full mb-6 px-4 py-2 bg-[#0f0c29] text-white border border-purple-500 rounded focus:outline-none focus:ring-2 focus:ring-purple-400 placeholder-purple-400"
           />
+          <label
+            htmlFor="ProfilePic"
+            className="block text-sm font-medium text-purple-300 mb-1"
+          >
+            ProfilePic
+          </label>
+          
+            <input
+            type="text"
+            placeholder="Enter ProfilePic URL "
+            id="ProfilePic"
+            value={ProfilePic}
+            onChange={(e) => {
+              setProfilePic(e.target.value);
+            }}
+            className="w-full mb-6 px-4 py-2 bg-[#0f0c29] text-white border border-purple-500 rounded focus:outline-none focus:ring-2 focus:ring-purple-400 placeholder-purple-400"
+          />
 
           <button
             type="submit"
@@ -116,6 +147,7 @@ const Signup = () => {
           >
             Sign Up
           </button>
+      
         </form>
       </div>
     </div>
